@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 
-import sys
 import os
+import sys
 
 from summa.summarizer import summarize
-
 
 LANGUAGE = "english"
 SENTENCES_COUNT = 30
