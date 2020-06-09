@@ -3,6 +3,7 @@
 
 import sys
 import os
+
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
 SIZE_FILE = "src/target-length/en.txt"
@@ -22,7 +23,7 @@ def extract(summarizer, maxSize):
 
 
 def readTextFile(path):
-    txt_file = open(path, 'r')
+    txt_file = open(path, "r")
     text = u""
     while 1:
         line = txt_file.readline()
@@ -34,7 +35,7 @@ def readTextFile(path):
 
 if __name__ == "__main__":
     reload(sys)
-    sys.setdefaultencoding('utf8')
+    sys.setdefaultencoding("utf8")
     """
     nltk.data.path.append('/home/kariminf/Data/NLTK/')
 
@@ -44,36 +45,37 @@ if __name__ == "__main__":
         print(sentence)
     """
 
-    file = open(SIZE_FILE, 'r')
+    file = open(SIZE_FILE, "r")
     while 1:
         line = file.readline()
-        if line == '':
+        if line == "":
             break
         parts = line.split(",")
         evals.append(parts[0])
     file.close()
 
-    xmlcontent = "<ROUGE-EVAL version=\"1.0\">\n"
+    xmlcontent = '<ROUGE-EVAL version="1.0">\n'
 
-    peers = os.listdir('baselines/')
+    peers = os.listdir("baselines/")
 
     for eval in evals:
-        xmlcontent += "<EVAL ID=\"" + eval[:-9] + "\">\n"
+        xmlcontent += '<EVAL ID="' + eval[:-9] + '">\n'
         xmlcontent += "<PEER-ROOT>\n"
         xmlcontent += dir_path + "/baselines\n"
         xmlcontent += "</PEER-ROOT>\n"
         xmlcontent += "<MODEL-ROOT>\n"
         xmlcontent += dir_path + "/model/en\n"
         xmlcontent += "</MODEL-ROOT>\n"
-        xmlcontent += "<INPUT-FORMAT TYPE=\"SPL\">\n"
+        xmlcontent += '<INPUT-FORMAT TYPE="SPL">\n'
         xmlcontent += "</INPUT-FORMAT>\n"
         xmlcontent += "<PEERS>\n"
         for peer in peers:
-            xmlcontent += "<P ID=\"" + peer + "\">" + \
-                peer + "/en/" + eval[:-9] + ".txt</P>\n"
+            xmlcontent += (
+                '<P ID="' + peer + '">' + peer + "/en/" + eval[:-9] + ".txt</P>\n"
+            )
         xmlcontent += "</PEERS>\n"
         xmlcontent += "<MODELS>\n"
-        xmlcontent += "<M ID=\"M1\">" + eval[:-9] + "_summary.txt</M>\n"
+        xmlcontent += '<M ID="M1">' + eval[:-9] + "_summary.txt</M>\n"
         xmlcontent += "</MODELS>\n"
         xmlcontent += "</EVAL>\n"
 

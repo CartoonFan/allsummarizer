@@ -23,7 +23,7 @@ sizes = {}
 
 
 def extract(sentences, maxSize):
-    summary = u""
+    summary = ""
     size = 0
     for sentence in sentences:
         size += len(unicode(sentence))
@@ -34,8 +34,8 @@ def extract(sentences, maxSize):
 
 
 def readTextFile(path):
-    txt_file = open(path, 'r')
-    text = u""
+    txt_file = open(path, "r")
+    text = ""
     while 1:
         line = txt_file.readline()
         if line == "":
@@ -46,7 +46,7 @@ def readTextFile(path):
 
 if __name__ == "__main__":
     reload(sys)
-    sys.setdefaultencoding('utf8')
+    sys.setdefaultencoding("utf8")
     """
     nltk.data.path.append('/home/kariminf/Data/NLTK/')
 
@@ -56,16 +56,16 @@ if __name__ == "__main__":
         print(sentence)
     """
 
-    file = open(SIZE_FILE, 'r')
+    file = open(SIZE_FILE, "r")
     while 1:
         line = file.readline()
-        if line == '':
+        if line == "":
             break
         parts = line.split(",")
         sizes[parts[0]] = int(parts[1])
     file.close()
 
-    nltk.data.path.append('/home/kariminf/Data/NLTK/')
+    nltk.data.path.append("/home/kariminf/Data/NLTK/")
     for eval in sizes:
         txt_path = "src/body/text/en/" + eval
         parser = PlaintextParser.from_file(txt_path, Tokenizer(LANGUAGE))
@@ -73,7 +73,6 @@ if __name__ == "__main__":
         summarizer = Summarizer(stemmer)
         summarizer.stop_words = get_stop_words(LANGUAGE)
         summary = extract(summarizer, sizes[eval])
-        fout = open("baselines/EdmundsonSummarizer/en/" +
-                    eval[:-9] + ".txt", "w")
+        fout = open("baselines/EdmundsonSummarizer/en/" + eval[:-9] + ".txt", "w")
         fout.write(summary)
         fout.close()

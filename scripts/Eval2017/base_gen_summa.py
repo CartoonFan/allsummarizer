@@ -29,7 +29,7 @@ def extract(sentences, maxSize):
 
 
 def readTextFile(path):
-    txt_file = open(path, 'r')
+    txt_file = open(path, "r")
     text = u""
     while 1:
         line = txt_file.readline()
@@ -41,7 +41,7 @@ def readTextFile(path):
 
 if __name__ == "__main__":
     reload(sys)
-    sys.setdefaultencoding('utf8')
+    sys.setdefaultencoding("utf8")
     """
     nltk.data.path.append('/home/kariminf/Data/NLTK/')
 
@@ -51,10 +51,10 @@ if __name__ == "__main__":
         print(sentence)
     """
 
-    file = open(SIZE_FILE, 'r')
+    file = open(SIZE_FILE, "r")
     while 1:
         line = file.readline()
-        if line == '':
+        if line == "":
             break
         parts = line.split(",")
         sizes[parts[0]] = int(parts[1])
