@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
-
 from __future__ import absolute_import
-from __future__ import division, print_function, unicode_literals
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
 
 import sys
+
 import nltk
+from sumy.nlp.stemmers import Stemmer
+from sumy.nlp.tokenizers import Tokenizer
 from sumy.parsers.html import HtmlParser
 from sumy.parsers.plaintext import PlaintextParser
-from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.edmundson import EdmundsonSummarizer as Summarizer
-from sumy.nlp.stemmers import Stemmer
 from sumy.utils import get_stop_words
-
 
 LANGUAGE = "english"
 SENTENCES_COUNT = 30
@@ -21,29 +22,32 @@ SIZE_FILE = "src/target-length/en.txt"
 
 sizes = {}
 
+
 def extract(sentences, maxSize):
-    summary = u""
+    summary = ""
     size = 0
     for sentence in sentences:
         size += len(unicode(sentence))
         if size > maxSize:
-            break;
+            break
         summary = summary + unicode(sentence) + "\n"
     return summary
 
+
 def readTextFile(path):
-    txt_file = open(path, 'r')
-    text = u""
+    txt_file = open(path, "r")
+    text = ""
     while 1:
         line = txt_file.readline()
         if line == "":
-            break;
+            break
         text = text + line + "\n"
     return text
 
+
 if __name__ == "__main__":
     reload(sys)
-    sys.setdefaultencoding('utf8')
+    sys.setdefaultencoding("utf8")
     """
     nltk.data.path.append('/home/kariminf/Data/NLTK/')
 
@@ -53,23 +57,24 @@ if __name__ == "__main__":
         print(sentence)
     """
 
-    file = open(SIZE_FILE, 'r')
+    file = open(SIZE_FILE, "r")
     while 1:
         line = file.readline()
-        if line == '':
-			break;
+        if line == "":
+            break
         parts = line.split(",")
         sizes[parts[0]] = int(parts[1])
     file.close()
 
-    nltk.data.path.append('/home/kariminf/Data/NLTK/')
+    nltk.data.path.append("/home/kariminf/Data/NLTK/")
     for eval in sizes:
-    	txt_path = "src/body/text/en/" + eval
+        txt_path = "src/body/text/en/" + eval
         parser = PlaintextParser.from_file(txt_path, Tokenizer(LANGUAGE))
         stemmer = Stemmer(LANGUAGE)
         summarizer = Summarizer(stemmer)
         summarizer.stop_words = get_stop_words(LANGUAGE)
         summary = extract(summarizer, sizes[eval])
-        fout = open("baselines/EdmundsonSummarizer/en/" + eval[:-9] + ".txt", "w")
+        fout = open("baselines/EdmundsonSummarizer/en/" + eval[:-9] + ".txt",
+                    "w")
         fout.write(summary)
         fout.close()
