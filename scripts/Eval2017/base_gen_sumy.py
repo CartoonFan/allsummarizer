@@ -74,6 +74,7 @@ if __name__ == "__main__":
         summarizer = Summarizer(stemmer)
         summarizer.stop_words = get_stop_words(LANGUAGE)
         summary = extract(summarizer, sizes[eval])
-        fout = open("baselines/EdmundsonSummarizer/en/" + eval[:-9] + ".txt", "w")
+        fout = open("baselines/EdmundsonSummarizer/en/" + eval[:-9] + ".txt",
+                    "w")
         fout.write(summary)
         fout.close()

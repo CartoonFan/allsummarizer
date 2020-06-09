@@ -68,9 +68,8 @@ if __name__ == "__main__":
         xmlcontent += "</INPUT-FORMAT>\n"
         xmlcontent += "<PEERS>\n"
         for peer in peers:
-            xmlcontent += (
-                '<P ID="' + peer + '">' + peer + "/en/" + eval[:-9] + ".txt</P>\n"
-            )
+            xmlcontent += ('<P ID="' + peer + '">' + peer + "/en/" +
+                           eval[:-9] + ".txt</P>\n")
         xmlcontent += "</PEERS>\n"
         xmlcontent += "<MODELS>\n"
         xmlcontent += '<M ID="M1">' + eval[:-9] + "_summary.txt</M>\n"
