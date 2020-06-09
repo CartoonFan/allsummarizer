@@ -13,7 +13,7 @@ def extract(summarizer, maxSize):
     summary = u""
     size = 0
     for sentence in summarizer(parser.document, SENTENCES_COUNT):
-        size = size + len(unicode(sentence))
+        size += len(unicode(sentence))
         if size > maxSize:
             break;
         summary = summary + unicode(sentence) + "\n"
