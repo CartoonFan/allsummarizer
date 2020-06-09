@@ -11,13 +11,13 @@ SENTENCES_COUNT = 30
 MODEL = "model/en"
 SIZE_FILE = "src/target-length/en.txt"
 
-sizes = dict()
+sizes = {}
 
 def extract(sentences, maxSize):
     summary = u""
     size = 0
     for sentence in sentences:
-        size = size + len(unicode(sentence))
+        size += len(unicode(sentence))
         if size > maxSize:
             break;
         summary = summary + unicode(sentence) + "\n"
