@@ -9,15 +9,17 @@ SIZE_FILE = "src/target-length/en.txt"
 
 evals = []
 
+
 def extract(summarizer, maxSize):
     summary = u""
     size = 0
     for sentence in summarizer(parser.document, SENTENCES_COUNT):
         size += len(unicode(sentence))
         if size > maxSize:
-            break;
+            break
         summary = summary + unicode(sentence) + "\n"
     return summary
+
 
 def readTextFile(path):
     txt_file = open(path, 'r')
@@ -25,9 +27,10 @@ def readTextFile(path):
     while 1:
         line = txt_file.readline()
         if line == "":
-            break;
+            break
         text = text + line + "\n"
     return text
+
 
 if __name__ == "__main__":
     reload(sys)
@@ -45,7 +48,7 @@ if __name__ == "__main__":
     while 1:
         line = file.readline()
         if line == '':
-			break;
+            break
         parts = line.split(",")
         evals.append(parts[0])
     file.close()
@@ -66,12 +69,13 @@ if __name__ == "__main__":
         xmlcontent += "</INPUT-FORMAT>\n"
         xmlcontent += "<PEERS>\n"
         for peer in peers:
-            xmlcontent += "<P ID=\""+ peer + "\">" + peer + "/en/" + eval[:-9] + ".txt</P>\n"
-        xmlcontent += "</PEERS>\n";
-        xmlcontent += "<MODELS>\n";
-        xmlcontent += "<M ID=\"M1\">" + eval[:-9] + "_summary.txt</M>\n";
-        xmlcontent += "</MODELS>\n";
-        xmlcontent += "</EVAL>\n";
+            xmlcontent += "<P ID=\"" + peer + "\">" + \
+                peer + "/en/" + eval[:-9] + ".txt</P>\n"
+        xmlcontent += "</PEERS>\n"
+        xmlcontent += "<MODELS>\n"
+        xmlcontent += "<M ID=\"M1\">" + eval[:-9] + "_summary.txt</M>\n"
+        xmlcontent += "</MODELS>\n"
+        xmlcontent += "</EVAL>\n"
 
     xmlcontent += "</ROUGE-EVAL>\n"
 

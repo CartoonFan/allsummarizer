@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import sys, os
+import sys
+import os
 
 from summa.summarizer import summarize
 
@@ -13,17 +14,19 @@ SIZE_FILE = "src/target-length/en.txt"
 
 sizes = {}
 
+
 def extract(sentences, maxSize):
     summary = u""
     size = 0
     for sentence in sentences:
         size += len(unicode(sentence))
         if size > maxSize:
-            break;
+            break
         summary = summary + unicode(sentence) + "\n"
     if size == 0:
         return sentences[0] + "\n"
     return summary
+
 
 def readTextFile(path):
     txt_file = open(path, 'r')
@@ -31,9 +34,10 @@ def readTextFile(path):
     while 1:
         line = txt_file.readline()
         if line == "":
-            break;
+            break
         text = text + line + "\n"
     return text
+
 
 if __name__ == "__main__":
     reload(sys)
@@ -51,19 +55,18 @@ if __name__ == "__main__":
     while 1:
         line = file.readline()
         if line == '':
-			break;
+            break
         parts = line.split(",")
         sizes[parts[0]] = int(parts[1])
     file.close()
-    
 
-    #nltk.data.path.append('/home/kariminf/Data/NLTK/')
+    # nltk.data.path.append('/home/kariminf/Data/NLTK/')
     for eval in sizes:
-		txt_path = "src/body/text/en/" + eval
-		print(txt_path)
-		text = readTextFile(txt_path)
-		sentences = summarize(text,language=LANGUAGE, split=True)
-		summary = extract(sentences, sizes[eval])
-		fout = open("baselines/summa_textrank/en/" + eval[:-9] + ".txt", "w")
-		fout.write(summary)
-		fout.close()
+        txt_path = "src/body/text/en/" + eval
+        print(txt_path)
+        text = readTextFile(txt_path)
+        sentences = summarize(text, language=LANGUAGE, split=True)
+        summary = extract(sentences, sizes[eval])
+        fout = open("baselines/summa_textrank/en/" + eval[:-9] + ".txt", "w")
+        fout.write(summary)
+        fout.close()
